@@ -21,3 +21,5 @@ Route::get('admin', array('uses' => 'Admin@index'));
 Route::post('admin', array('uses' => 'Admin@doLogin'));
 
 Route::get('admin/logout', array('uses' => 'Admin@doLogout'));
+
+Route::resource('admin/resources', 'ResourceController');

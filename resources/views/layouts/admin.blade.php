@@ -5,13 +5,13 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Bootsrtap Free Admin Template - SIMINTA | Admin Dashboad Template</title>
     <!-- Core CSS - Include with every page -->
-    <link href="assets/plugins/bootstrap/bootstrap.css" rel="stylesheet" />
-    <link href="assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
-    <link href="assets/plugins/pace/pace-theme-big-counter.css" rel="stylesheet" />
-    <link href="assets/css/style.css" rel="stylesheet" />
-    <link href="assets/css/main-style.css" rel="stylesheet" />
+    <link href="/assets/plugins/bootstrap/bootstrap.css" rel="stylesheet" />
+    <link href="/assets/font-awesome/css/font-awesome.css" rel="stylesheet" />
+    <link href="/assets/plugins/pace/pace-theme-big-counter.css" rel="stylesheet" />
+    <link href="/assets/css/style.css" rel="stylesheet" />
+    <link href="/assets/css/main-style.css" rel="stylesheet" />
     <!-- Page-Level CSS -->
-    <link href="assets/plugins/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    <link href="/assets/plugins/morris/morris-0.4.3.min.css" rel="stylesheet" />
    </head>
 <body>
     <!--  wrapper -->
@@ -27,7 +27,7 @@
                     <span class="icon-bar"></span>
                 </button>
                 <a class="navbar-brand" href="/admin">
-                    <img src="assets/img/logo.png" alt="" />
+                    <img src="/assets/img/logo.png" alt="" />
                 </a>
             </div>
             <!-- end navbar-header -->
@@ -46,7 +46,7 @@
                         <li><a href="#"><i class="fa fa-gear fa-fw"></i>Settings</a>
                         </li>
                         <li class="divider"></li>
-                        <li><a href="admin/logout"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
+                        <li><a href="/admin/logout"><i class="fa fa-sign-out fa-fw"></i>Logout</a>
                         </li>
                     </ul>
                     <!-- end dropdown-user -->
@@ -68,7 +68,7 @@
                         <!-- user image section-->
                         <div class="user-section">
                             <div class="user-section-inner">
-                                <img src="assets/img/user.jpg" alt="">
+                                <img src="/assets/img/user.jpg" alt="">
                             </div>
                             <div class="user-info">
                             @if (Auth::check())
@@ -100,10 +100,10 @@
                         <a href="#"><i class="fa fa-flask fa-fw"></i> Fumetti<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
-                                <a href="flot.html">Inserisci nuovo</a>
+                                <a href="/admin/resources/create">Inserisci nuovo</a>
                             </li>
                             <li>
-                                <a href="morris.html">Gestione fumetti</a>
+                                <a href="/morris.html">Gestione fumetti</a>
                             </li>
                         </ul>
                         <!-- second-level-items -->
@@ -124,16 +124,19 @@
     <!-- end wrapper -->
 
     <!-- Core Scripts - Include with every page -->
-    <script src="assets/plugins/jquery-1.10.2.js"></script>
-    <script src="assets/plugins/bootstrap/bootstrap.min.js"></script>
-    <script src="assets/plugins/metisMenu/jquery.metisMenu.js"></script>
-    <script src="assets/plugins/pace/pace.js"></script>
-    <script src="assets/scripts/siminta.js"></script>
+    <script src="/assets/plugins/jquery-1.10.2.js"></script>
+    <script src="/assets/plugins/bootstrap/bootstrap.min.js"></script>
+    <script src="/assets/plugins/metisMenu/jquery.metisMenu.js"></script>
+    <script src="/assets/plugins/pace/pace.js"></script>
+    <script src="/assets/scripts/siminta.js"></script>
     <!-- Page-Level Plugin Scripts-->
-    <script src="assets/plugins/morris/raphael-2.1.0.min.js"></script>
-    <script src="assets/plugins/morris/morris.js"></script>
-    <script src="assets/scripts/dashboard-demo.js"></script>
+    <script src="/assets/plugins/morris/raphael-2.1.0.min.js"></script>
+    <script src="/assets/plugins/morris/morris.js"></script>
+    <script src="/assets/scripts/dashboard-demo.js"></script>
 
+<script>
+    @yield('scripts')
+</script>
 </body>
 
 </html>
