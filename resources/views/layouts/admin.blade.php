@@ -12,6 +12,7 @@
     <link href="/assets/css/main-style.css" rel="stylesheet" />
     <!-- Page-Level CSS -->
     <link href="/assets/plugins/morris/morris-0.4.3.min.css" rel="stylesheet" />
+    @yield('include_stylesheet')
    </head>
 <body>
     <!--  wrapper -->
@@ -133,7 +134,7 @@
     <script src="/assets/plugins/morris/raphael-2.1.0.min.js"></script>
     <script src="/assets/plugins/morris/morris.js"></script>
     <script src="/assets/scripts/dashboard-demo.js"></script>
-
+    @yield('include_scripts')
 <script>
     @yield('scripts')
 </script>

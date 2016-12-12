@@ -16,7 +16,9 @@ class ResourceController extends Controller
      */
     public function index()
     {
-        return view('admin.resource.index');
+        $resources = Resource::all();
+
+        return view('admin.resource.index',['resources' => $resources]);
     }
 
     /**
