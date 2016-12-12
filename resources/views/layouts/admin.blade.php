@@ -97,13 +97,13 @@
                         <a href="/admin"><i class="fa fa-dashboard fa-fw"></i>Dashboard</a>
                     </li>
                     <li>
-                        <a href="#"><i class="fa fa-flask fa-fw"></i> Fumetti<span class="fa arrow"></span></a>
+                        <a href="#"><i class="fa fa-flask fa-fw"></i> Risorse<span class="fa arrow"></span></a>
                         <ul class="nav nav-second-level">
                             <li>
                                 <a href="/admin/resources/create">Inserisci nuovo</a>
                             </li>
                             <li>
-                                <a href="/morris.html">Gestione fumetti</a>
+                                <a href="/admin/resources">Gestione risorse</a>
                             </li>
                         </ul>
                         <!-- second-level-items -->
