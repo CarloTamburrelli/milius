@@ -97,7 +97,7 @@ class ResourceController extends Controller
                     $illustration->save();
                 }
             }
-            return view('admin.resource.index');
+            return \Redirect::to('resource.index');
         }
     }
 

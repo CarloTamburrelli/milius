@@ -11,9 +11,9 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+Route::get('/', array('uses' => 'Reader@index'));
+
+Route::get('/read/{url_resource}', array('uses' => 'Reader@read'));
 
 
 Route::get('admin', array('uses' => 'Admin@index'));
