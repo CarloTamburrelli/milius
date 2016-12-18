@@ -76,6 +76,10 @@ class ResourceController extends Controller
             $destinationPath = 'uploads/'.$resource->id;
             $photo = $request->file('photo');
             $photo->move($destinationPath,"photo.jpg");
+
+            $last_id = Illustration::all()->last()->id;
+            $last_id = $last_id +1;
+
             for($i=1; $i<=$n_boards; $i++){
                 $board = new Board;
                 $board->resource_id = $resource->id;
@@ -86,18 +90,20 @@ class ResourceController extends Controller
                     $illustration = new Illustration;
                     $illustration->board_id = $board->id;
                     $img = $request->file('vign'.$i."_".$y);
-                    $upload_success = $img->move($destinationPath."/board".$i, $y.".jpg");
+                    $upload_success = $img->move($destinationPath."/board".$board->id, $last_id.".jpg");
                     if($request->hasFile('sound'.$i."_".$y)){ //il suono e' un input facoltativo
                         $illustration->sound = 1;
                         $sou = $request->file('sound'.$i."_".$y);
-                        $upload_success = $sou->move($destinationPath."/sound".$i, $y.".mp3");
+                        $upload_success = $sou->move($destinationPath."/sounds", $last_id.".mp3");
                     }else{
                         $illustration->sound = 0;
                     }
+                    $illustration->id = $last_id;
                     $illustration->save();
+                    $last_id = $last_id +1 ;
                 }
             }
-            return \Redirect::to('resource.index');
+            return \Redirect::to('admin/resources');
         }
     }
 
