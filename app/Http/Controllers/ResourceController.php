@@ -77,8 +77,11 @@ class ResourceController extends Controller
             $photo = $request->file('photo');
             $photo->move($destinationPath,"photo.jpg");
 
-            $last_id = Illustration::all()->last()->id;
-            $last_id = $last_id +1;
+            $last_id = 1;
+            if(!Illustration::all()->isEmpty()){
+                $last_id = Illustration::all()->last()->id;
+                $last_id = $last_id +1;
+            }   
 
             for($i=1; $i<=$n_boards; $i++){
                 $board = new Board;
@@ -150,7 +153,14 @@ class ResourceController extends Controller
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
-    {
-        //
+    {   
+        if(\File::exists(public_path()."/uploads/".$id)){
+            \File::deleteDirectory(public_path()."/uploads/".$id);
+            Resource::destroy($id);
+            \Session::flash('message', 'Tutto bene, eliminato!');
+        }else {
+            \Session::flash('message', 'Errore imprevisto, cartella in /uploads non trovata!');
+        }
+        return \Redirect::to('admin/resources');
     }
 }

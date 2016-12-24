@@ -16,7 +16,7 @@ class CreateResourceTable extends Migration
         Schema::create('resources', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('user_id')->unsigned();
-            $table->foreign('user_id')->references('id')->on('users');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
             $table->string('url');
             $table->string('title');
             $table->string('tags');

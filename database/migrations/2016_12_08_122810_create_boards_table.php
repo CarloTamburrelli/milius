@@ -16,7 +16,7 @@ class CreateBoardsTable extends Migration
          Schema::create('boards', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('resource_id')->unsigned();
-            $table->foreign('resource_id')->references('id')->on('resources');
+            $table->foreign('resource_id')->references('id')->on('resources')->onDelete('cascade');
             $table->timestamps();
         });
     }

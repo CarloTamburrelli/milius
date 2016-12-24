@@ -16,7 +16,7 @@ class CreateIllustrationsTable extends Migration
         Schema::create('illustrations', function (Blueprint $table) {
             $table->increments('id');
             $table->integer('board_id')->unsigned();
-            $table->foreign('board_id')->references('id')->on('boards');
+            $table->foreign('board_id')->references('id')->on('boards')->onDelete('cascade');
             $table->boolean('sound');
             $table->timestamps();
         });

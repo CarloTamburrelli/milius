@@ -26,11 +26,22 @@ class Reader extends Controller
 			$board_plus_1 = Board::where("id",($board->id+1))->first(['id']);
 		}else{
 			$board = Board::where("id",$board_id)->first();
-			$board_minus_1 = Board::where("id",$board->id-1);
+			/*$board_minus_1 = Board::where("id",$board->id-1)->whereHas('resource', function($query) {
+                    $query->where('url', '=', 'benissimo-sequel');
+                })->toSql(); */
+		$board_minus_1 = Board::where("id",$board->id-1)->whereHas(
+			'resource' , function($query) use ($url_resource)
+			    {
+			        $query->whereRaw('(url = ?)', array($url_resource));
+				});
 			if(!is_null($board_minus_1)){
 				$board_minus_1 = $board_minus_1->first(['id']);
 			}
-			$board_plus_1 = Board::where("id",$board->id+1);
+			$board_plus_1 = Board::where("id",$board->id+1)->whereHas(
+			'resource' , function($query) use ($url_resource)
+			    {
+			        $query->whereRaw('(url = ?)', array($url_resource));
+				});
 			if(!is_null($board_plus_1)){
 				$board_plus_1 = $board_plus_1->first(['id']);
 			}

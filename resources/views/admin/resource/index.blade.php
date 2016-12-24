@@ -10,6 +10,11 @@
                 <div class="col-lg-12">
                     <h1 class="page-header">Gestione Risorse</h1>
 
+@if(Session::has('message'))
+                    <div class="alert alert-info">
+                        <i class="fa fa-folder-open"></i> <b>{{ Session::get('message') }}</b>
+                    </div>
+                @endif  
                      <div class="panel panel-default">
                         <div class="panel-heading">
                              Elenco Risorse
@@ -25,6 +30,7 @@
                                             <th>Tags</th>
                                             <th>Indirizzo web</th>
                                             <th>Registrato il</th>
+                                            <th>Azioni</th>
                                         </tr>
                                     </thead>
                                     <tbody>
@@ -37,6 +43,11 @@
                                             <td>{{ $res->tags }}</td>
                                             <td>{{ $res->url }}</td>
                                             <td>{{ $res->created_at }}</td>
+                                            <td>
+{!! Form::open(['method' => 'DELETE', 'id' => 'resource_$res->id', 'action' => ['ResourceController@destroy', $res->id]]) !!}
+                    {!! Form::button( '<i class="fa fa-times"></i>', ['type' => 'submit', 'class' => 'deleteResource btn btn-warning btn-circle', 'data-id' => $res->id ] ) !!}
+               {!! Form::close() !!}
+</td>
                                         	</tr>
                                     	@endforeach
                                     @endif
@@ -59,4 +70,14 @@
 
 @section('scripts')
             $('#dataTables-example').dataTable();
+
+
+$('.deleteResource').on('click', function(e) {
+if (!confirm('ATTENZIONE: Confermando rimuoverai la risorsa '+$(this).data("id"))) {
+    return false;
+} 
+});
+
+
+
 @endsection
