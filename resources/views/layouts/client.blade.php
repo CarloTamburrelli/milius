@@ -1,6 +1,6 @@
 <html>
 <head>
-<link href="/assets/plugins/bootstrap/bootstrap.css" rel="stylesheet" />
+<link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
 @yield('include_stylesheet')
     <style>
 

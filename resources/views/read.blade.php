@@ -4,6 +4,7 @@
 <script src="/js/ion.sound.min.js" crossorigin="anonymous"></script>
 <script src="/js/jquery-3.1.1.min.js" crossorigin="anonymous"></script> 
 <script src="/js/jquery.waypoints.min.js" crossorigin="anonymous"></script> 
+<script src="/assets/plugins/bootstrap/bootstrap.min.js" crossorigin="anonymous"></script>
 @endsection
 
 <style>
@@ -42,6 +43,23 @@
 
 <?php $sounds = array() ?>
 @section('body')
+
+<div class="btn-group btn-group-justified" role="group" aria-label="...">
+  <div class="btn-group" role="group">
+    <a href="/" class="btn btn-default" role="button">Homepage <span class="glyphicon glyphicon-tree-conife" aria-hidden="true"></span></a>
+  </div>
+  <div class="btn-group" role="group">
+    <a id="no_sound" class="btn btn-default" role="button">No sound <span id="label_sound" class="glyphicon glyphicon-volume-up"></span></a>
+  </div>
+  <div class="btn-group" role="group">
+  <a href="#scroll-to-top" class="btn btn-default" role="button">Settings</a>
+  </div>
+</div>
+
+
+
+
+
 <div class="spinner"></div>
 <div id="wrapper" class="container-fluid" style="background:black">
     <div class="row">
@@ -96,6 +114,8 @@ $('.sound').waypoint(function() {
     ion.sound.play(play_sound);
     this.destroy();
 });
+var label_sound = 0;
+
 
 
    ion.sound({
@@ -106,13 +126,25 @@ $('.sound').waypoint(function() {
 		},
 	@endforeach
     ],
-    volume: 0.5,
     path: "/uploads/{{$board->resource->id}}/sounds/",
     preload: true,
     ready_callback: function (info) {
     	$("#wrapper").css("display","block");
     	$(".spinner").css("display","none");
     }
+});
+
+$("#no_sound").click(function(){
+	label_sound = 1 - label_sound;
+	if(label_sound == 1){
+		$("#label_sound").removeClass("glyphicon-volume-up");
+		$("#label_sound").addClass("glyphicon-volume-off");
+		ion.sound.pause();
+	} else {
+		$("#label_sound").removeClass("glyphicon-volume-off");
+		$("#label_sound").addClass("glyphicon-volume-up");
+		ion.sound.play();
+	} 
 });
 
 @endsection('scripts')
