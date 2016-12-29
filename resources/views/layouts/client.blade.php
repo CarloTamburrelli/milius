@@ -1,6 +1,7 @@
 <html>
 <head>
 <link href="/assets/css/bootstrap.min.css" rel="stylesheet" />
+<script src="/js/jquery-3.1.1.min.js" crossorigin="anonymous"></script> 
 @yield('include_stylesheet')
     <style>
 

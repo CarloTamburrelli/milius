@@ -15,7 +15,7 @@ Route::get('/', array('uses' => 'Reader@index'));
 
 Route::get('/read/{url_resource}/{board?}', array('uses' => 'Reader@read'));
 
-
+Route::post('get-resources',array('uses' =>'ResourceController@getResourceBySearchBar'));
 Route::get('admin', array('uses' => 'Admin@index'));
 
 Route::post('admin', array('uses' => 'Admin@doLogin'));

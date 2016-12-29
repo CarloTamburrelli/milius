@@ -110,6 +110,16 @@ class ResourceController extends Controller
         }
     }
 
+    public function getResourceBySearchBar(Request $request)
+    {
+        $to_find = $request->input('word');
+        $res = Resource::where('tags', 'LIKE', '%'.$to_find.'%')->
+        orwhere('title', 'LIKE', '%'.$to_find.'%')->
+        orwhere('description', 'LIKE', '%'.$to_find.'%')->
+        get();
+        return $res;
+
+    }
 
 
     /**

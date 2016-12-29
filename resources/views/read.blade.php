@@ -2,7 +2,6 @@
 
 @section('include_stylesheet')
 <script src="/js/ion.sound.min.js" crossorigin="anonymous"></script>
-<script src="/js/jquery-3.1.1.min.js" crossorigin="anonymous"></script> 
 <script src="/js/jquery.waypoints.min.js" crossorigin="anonymous"></script> 
 <script src="/assets/plugins/bootstrap/bootstrap.min.js" crossorigin="anonymous"></script>
 @endsection
@@ -68,7 +67,7 @@
  <div 
  @if($il->sound == 1)
  	class="col-xs-12 sound" data-sound="{{$il->id}}" 
- 	{{$sounds[] = $il->id}}
+ 	<?php $sounds[] = $il->id ?>
  @else
  	class="col-xs-12"
  @endif ><img style="width:100%" src="/uploads/{{$board->resource->id}}/board{{$board->id}}/{{$il->id}}.jpg"></img></div>

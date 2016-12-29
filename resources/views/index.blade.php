@@ -11,17 +11,17 @@
 <div class="col-md-4 col-centered">
 
 <div class="form-group">
-    <input type="text" class="form-control" id="exampleInputName2" placeholder="Cerca fumetto">
+    <input type="text" class="form-control" id="search" placeholder="Cerca fumetto">
   </div>
 </div>
 </div>
- 	<div class="row">
+ 	<div class="row main">
  	@foreach ($resources as $res)
- 		<!-- <div class="col-md-3" style="background:yellow"><a href="read/{{$res->url}}"><img src="uploads/{{$res->id}}/photo.jpg" class="img-responsive"></img></a></div> -->
 
-<div class="col-lg-3 col-md-4 col-xs-6 thumb">
+<div class="rim col-lg-3 col-md-4 col-xs-6 thumb">
                 <a class="thumbnail" href="read/{{$res->url}}">
                     <img class="img-responsive" style="width:300px;height:200px" src="uploads/{{$res->id}}/photo.jpg" alt="">
+                    <div class="panel-footer">{{$res->title}}</div>
                 </a>
             </div>
 
@@ -32,4 +32,29 @@
 
 </div>
 
+@endsection
+
+@section('scripts')
+
+var CSRF_TOKEN = "{{ csrf_token() }}";
+
+$( "#search" ).keyup(function() {
+var val = $(this).val();
+$(".rim").remove();
+$.ajax({
+    url: 'get-resources',
+    type: 'POST',
+    data: { word : val,
+    		_token : CSRF_TOKEN},
+    dataType: 'JSON',
+    success: function (data) {
+
+for (var i = 0; i < data.length; ++i) {
+    $("div.main").append("<div class=\"rim col-lg-3 col-md-4 col-xs-6 thumb\"><a class=\"thumbnail\" href=\"read/"+data[i].url+"\"><img class=\"img-responsive\" style=\"width:300px;height:200px\" src=\"uploads/"+data[i].id+"/photo.jpg\" alt=\"\"><div class=\"panel-footer\">"+data[i].title+"</div></a></div>");
+}
+
+    }
+});
+
+});
 @endsection
