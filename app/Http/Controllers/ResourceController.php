@@ -86,6 +86,7 @@ class ResourceController extends Controller
             for($i=1; $i<=$n_boards; $i++){
                 $board = new Board;
                 $board->resource_id = $resource->id;
+                $board->read_down = $request->input('read_down'.$i) == 1 ? 1 : 0;
                 $board->save();
                 $Illustration = null;
                 $n_vign = $request->input('board'.$i); 
@@ -113,10 +114,15 @@ class ResourceController extends Controller
     public function getResourceBySearchBar(Request $request)
     {
         $to_find = $request->input('word');
+        $res;
+        if($to_find!=""){
         $res = Resource::where('tags', 'LIKE', '%'.$to_find.'%')->
         orwhere('title', 'LIKE', '%'.$to_find.'%')->
         orwhere('description', 'LIKE', '%'.$to_find.'%')->
         get();
+        }else{
+            $res  = Resource::all();
+        }
         return $res;
 
     }

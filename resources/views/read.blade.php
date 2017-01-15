@@ -7,24 +7,22 @@
 @endsection
 
 <style>
-
 .spinner {
+  position:fixed;
+  top: 30%;
+  left: 50%;
   width: 40px;
   height: 40px;
   background-color: #333;
   display: none;
-
-  margin: 100px auto;
   -webkit-animation: sk-rotateplane 1.2s infinite ease-in-out;
   animation: sk-rotateplane 1.2s infinite ease-in-out;
 }
-
 @-webkit-keyframes sk-rotateplane {
   0% { -webkit-transform: perspective(120px) }
   50% { -webkit-transform: perspective(120px) rotateY(180deg) }
   100% { -webkit-transform: perspective(120px) rotateY(180deg)  rotateX(180deg) }
 }
-
 @keyframes sk-rotateplane {
   0% { 
     transform: perspective(120px) rotateX(0deg) rotateY(0deg);
@@ -43,6 +41,10 @@
 <?php $sounds = array() ?>
 @section('body')
 
+
+
+<div class="spinner"></div>
+<div id="wrapper" class="container-fluid" style="background:black">
 <div class="btn-group btn-group-justified" role="group" aria-label="...">
   <div class="btn-group" role="group">
     <a href="/" class="btn btn-default" role="button">Homepage <span class="glyphicon glyphicon-tree-conife" aria-hidden="true"></span></a>
@@ -51,16 +53,9 @@
     <a id="no_sound" class="btn btn-default" role="button">No sound <span id="label_sound" class="glyphicon glyphicon-volume-up"></span></a>
   </div>
   <div class="btn-group" role="group">
-  <a href="#scroll-to-top" class="btn btn-default" role="button">Settings</a>
+  <a href="#scroll-to-down" class="btn btn-default" role="button">Tavola giu</a>
   </div>
 </div>
-
-
-
-
-
-<div class="spinner"></div>
-<div id="wrapper" class="container-fluid" style="background:black">
     <div class="row">
     <a name="scroll-to-top"></a>
 @foreach ($board->illustrations as $key => $il)
@@ -70,7 +65,15 @@
  	<?php $sounds[] = $il->id ?>
  @else
  	class="col-xs-12"
- @endif ><img style="width:100%" src="/uploads/{{$board->resource->id}}/board{{$board->id}}/{{$il->id}}.jpg"></img></div>
+ @endif
+
+@if($key == 0)
+  id= "current_board_from_start"
+@elseif($key == (count($board->illustrations)-1))
+  id= "current_board_from_last"
+@endif
+
+  ><img style="width:100%" src="/uploads/{{$board->resource->id}}/board{{$board->id}}/{{$il->id}}.jpg"></img></div>
 @endforeach
 <div class="btn-group btn-group-justified" role="group" aria-label="...">
   <div class="btn-group" role="group">
@@ -87,35 +90,50 @@
   @endif
   </div>
 </div>
-
+<a name="scroll-to-down" id = "current_board_from_bottom"></a>
 
 </div>
 </div>
-
-<style>
-
 @if (!empty($sounds))
+<style>
 #wrapper {
-	display:none;
+  opacity: 0;
 }
 .spinner {
 	display:block;
-@endif
-
+}
 </style>
+@endif
 @endsection('body')
-
-
 @section('scripts')
-
-$('.sound').waypoint(function() {
-	var play_sound = $(this).data("sound");
-    ion.sound.play(play_sound);
-    this.destroy();
-});
 var label_sound = 0;
+var flag_start_to_play = false;
+var id = "";
+$( document ).ready(function() {
+    @if ($board->read_down == 1)
+      id = "#current_board_from_last";
+      $(document).scrollTop( $("#current_board_from_bottom").offset().top );
+    @else
+      id = "#current_board_from_start";
+      $(document).scrollTop( $("#current_board_from_start").offset().top );
+    @endif
+    var play = $(id).data("sound");
+      if(play){
+        ion.sound.play(play);
+        //ion.sound.destroy(play);
+      }
+});
 
 
+ $('.sound').waypoint(function(direction) {
+  var element = $(this.element);
+    if(flag_start_to_play && ("#"+$(element).attr("id") != id)){
+      var play_sound = $(element).data("sound");
+      console.log("play!"+play_sound);
+      ion.sound.play(play_sound);
+      this.destroy();
+    }
+    });
 
    ion.sound({
     sounds: [
@@ -128,11 +146,11 @@ var label_sound = 0;
     path: "/uploads/{{$board->resource->id}}/sounds/",
     preload: true,
     ready_callback: function (info) {
-    	$("#wrapper").css("display","block");
+    	$("#wrapper").css("opacity","1");
     	$(".spinner").css("display","none");
+      flag_start_to_play = true;
     }
 });
-
 $("#no_sound").click(function(){
 	label_sound = 1 - label_sound;
 	if(label_sound == 1){
@@ -145,5 +163,4 @@ $("#no_sound").click(function(){
 		ion.sound.play();
 	} 
 });
-
 @endsection('scripts')
