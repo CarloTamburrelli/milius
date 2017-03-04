@@ -73,7 +73,7 @@
   id= "current_board_from_last"
 @endif
 
-  ><img style="width:100%" src="/uploads/{{$board->resource->id}}/board{{$board->id}}/{{$il->id}}.jpg"></img></div>
+  ><img style="width:100%;height:100vh" src="/uploads/{{$board->resource->id}}/board{{$board->id}}/{{$il->id}}.jpg"></img></div>
 @endforeach
 <div class="btn-group btn-group-justified" role="group" aria-label="...">
   <div class="btn-group" role="group">
