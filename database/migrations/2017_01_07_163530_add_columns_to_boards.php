@@ -15,6 +15,7 @@ class AddColumnsToBoards extends Migration
     {
         Schema::table('boards', function($table) {
             $table->boolean('read_down');
+            $table->boolean('fast_scroll');
         });
     }
 
@@ -27,6 +28,7 @@ class AddColumnsToBoards extends Migration
     {
         Schema::table('boards', function($table) {
             $table->dropColumn('read_down');
+            $table->dropColumn('fast_scroll');
         });
     }
 }

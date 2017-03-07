@@ -4,6 +4,9 @@
 <script src="/js/ion.sound.min.js" crossorigin="anonymous"></script>
 <script src="/js/jquery.waypoints.min.js" crossorigin="anonymous"></script> 
 <script src="/assets/plugins/bootstrap/bootstrap.min.js" crossorigin="anonymous"></script>
+@if($board->fast_scroll == 1)
+<script src="/js/fast_scroll.js" crossorigin="anonymous"></script>
+@endif
 @endsection
 
 <style>
@@ -60,19 +63,32 @@
     <a name="scroll-to-top"></a>
 @foreach ($board->illustrations as $key => $il)
  <div 
+ <?php 
+    $inject_class = "col-xs-12";
+    $inject_id = "";
+  ?>
  @if($il->sound == 1)
- 	class="col-xs-12 sound" data-sound="{{$il->id}}" 
- 	<?php $sounds[] = $il->id ?>
- @else
- 	class="col-xs-12"
+  <?php 
+        $inject_class .= " sound";
+        $sounds[] = $il->id;
+  ?>
+ 	data-sound="{{$il->id}}" 
+ @endif
+
+ @if($board->fast_scroll == 1)
+  <?php
+        $inject_class .= " pageSection";
+        $inject_id .= "section".$key;
+  ?>
  @endif
 
 @if($key == 0)
-  id= "current_board_from_start"
+  <?php $inject_id .= " current_board_from_start" ?>
 @elseif($key == (count($board->illustrations)-1))
-  id= "current_board_from_last"
+  <?php $inject_id .= " current_board_from_last" ?>
 @endif
-
+  id = "<?= $inject_id ?>"
+  class = "<?= $inject_class ?>"
   ><img style="width:100%;height:100vh" src="/uploads/{{$board->resource->id}}/board{{$board->id}}/{{$il->id}}.jpg"></img></div>
 @endforeach
 <div class="btn-group btn-group-justified" role="group" aria-label="...">

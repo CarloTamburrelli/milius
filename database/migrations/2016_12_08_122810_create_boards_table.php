@@ -19,6 +19,7 @@ class CreateBoardsTable extends Migration
             $table->foreign('resource_id')->references('id')->on('resources')->onDelete('cascade');
             $table->timestamps();
             $table->boolean('read_down');
+            $table->boolean('fast_scroll');
         });
     }
 
