@@ -4,7 +4,7 @@ use Illuminate\Support\Facades\Schema;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Database\Migrations\Migration;
 
-class AddColumnsToBoards extends Migration
+class UpdateIllustrationsTable extends Migration
 {
     /**
      * Run the migrations.
@@ -13,9 +13,9 @@ class AddColumnsToBoards extends Migration
      */
     public function up()
     {
-        Schema::table('boards', function($table) {
-            $table->boolean('read_down');
-            $table->boolean('fast_scroll');
+        Schema::table('illustrations', function($table)
+        {
+            $table->boolean('sound_loop');
         });
     }
 
@@ -26,9 +26,6 @@ class AddColumnsToBoards extends Migration
      */
     public function down()
     {
-        Schema::table('boards', function($table) {
-            $table->dropColumn('read_down');
-            $table->dropColumn('fast_scroll');
-        });
+        //
     }
 }

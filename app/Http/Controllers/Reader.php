@@ -23,7 +23,9 @@ class Reader extends Controller
 		if(is_null($board_id)){
 			$resource = Resource::where('url', $url_resource)->first();
 			$board = Board::find($resource->boards()->min("id"));
-			$board_plus_1 = Board::where("id",($board->id+1))->first(['id']);
+			$board_plus_1 = Board::where('id', '=', $board->id+1)
+				->where('resource_id', '=', $resource->id)
+                ->first(['id']);
 		}else{
 			$board = Board::where("id",$board_id)->first();
 		$board_minus_1 = Board::where("id",$board->id-1)->whereHas(

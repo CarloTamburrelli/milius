@@ -97,10 +97,12 @@ class ResourceController extends Controller
                     $img = $request->file('vign'.$i."_".$y);
                     $upload_success = $img->move($destinationPath."/board".$board->id, $last_id.".jpg");
                     if($request->hasFile('sound'.$i."_".$y)){ //il suono e' un input facoltativo
+                        $illustration->sound_loop = $request->input('sound_loop'.$i."_".$y) == 1 ? 1 : 0;
                         $illustration->sound = 1;
                         $sou = $request->file('sound'.$i."_".$y);
                         $upload_success = $sou->move($destinationPath."/sounds", $last_id.".mp3");
                     }else{
+                        $illustration->sound_loop = 0;
                         $illustration->sound = 0;
                     }
                     $illustration->id = $last_id;

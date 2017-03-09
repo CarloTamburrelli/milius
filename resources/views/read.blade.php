@@ -4,9 +4,6 @@
 <script src="/js/ion.sound.min.js" crossorigin="anonymous"></script>
 <script src="/js/jquery.waypoints.min.js" crossorigin="anonymous"></script> 
 <script src="/assets/plugins/bootstrap/bootstrap.min.js" crossorigin="anonymous"></script>
-@if($board->fast_scroll == 1)
-<script src="/js/fast_scroll.js" crossorigin="anonymous"></script>
-@endif
 @endsection
 
 <style>
@@ -70,7 +67,13 @@
  @if($il->sound == 1)
   <?php 
         $inject_class .= " sound";
-        $sounds[] = $il->id;
+        $arr_sound[0] = $il->id;
+        if($il->sound_loop ==1):
+          $arr_sound[1] = 1;
+        else:
+          $arr_sound[1] = 0;
+        endif;
+        $sounds[] = $arr_sound;
   ?>
  	data-sound="{{$il->id}}" 
  @endif
@@ -78,14 +81,14 @@
  @if($board->fast_scroll == 1)
   <?php
         $inject_class .= " pageSection";
-        $inject_id .= "section".$key;
+        $inject_id = "section".$key;
   ?>
  @endif
 
 @if($key == 0)
-  <?php $inject_id .= " current_board_from_start" ?>
+  <?php $inject_class .= " current_board_from_start" ?>
 @elseif($key == (count($board->illustrations)-1))
-  <?php $inject_id .= " current_board_from_last" ?>
+  <?php $inject_class .= " current_board_from_last" ?>
 @endif
   id = "<?= $inject_id ?>"
   class = "<?= $inject_class ?>"
@@ -120,20 +123,23 @@
 }
 </style>
 @endif
+@if($board->fast_scroll == 1)
+<script src="/js/fast_scroll.js" crossorigin="anonymous"></script>
+@endif
 @endsection('body')
 @section('scripts')
 var label_sound = 0;
 var flag_start_to_play = false;
-var id = "";
+var class_inj = "";
 $( document ).ready(function() {
     @if ($board->read_down == 1)
-      id = "#current_board_from_last";
+      class_inj = ".current_board_from_last";
       $(document).scrollTop( $("#current_board_from_bottom").offset().top );
     @else
-      id = "#current_board_from_start";
-      $(document).scrollTop( $("#current_board_from_start").offset().top );
+      class_inj = ".current_board_from_start";
+      $(document).scrollTop( $(".current_board_from_start").offset().top );
     @endif
-    var play = $(id).data("sound");
+    var play = $(class_inj).data("sound");
       if(play){
         ion.sound.play(play);
         //ion.sound.destroy(play);
@@ -143,7 +149,7 @@ $( document ).ready(function() {
 
  $('.sound').waypoint(function(direction) {
   var element = $(this.element);
-    if(flag_start_to_play && ("#"+$(element).attr("id") != id)){
+    if(flag_start_to_play && ("#"+$(element).attr("id") != class_inj)){
       var play_sound = $(element).data("sound");
       console.log("play!"+play_sound);
       ion.sound.play(play_sound);
@@ -155,7 +161,10 @@ $( document ).ready(function() {
     sounds: [
 	@foreach ($sounds as $sound)
 		{
-		   	name: "{{$sound}}"
+		   	name: "{{$sound[0]}}"
+        <?php if ($sound[1]==1): ?>
+          , loop : true
+        <?php endif; ?>
 		},
 	@endforeach
     ],

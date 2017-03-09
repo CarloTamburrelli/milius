@@ -2,6 +2,7 @@
 var it = 0; //iterata
 var previousScroll = 0;
 var animationComplete = true;
+var size = $(".pageSection").length - 2;
 $(window).scroll(function(e) {
     
     var windowTop = Math.max($('body').scrollTop(), $('html').scrollTop());
@@ -13,7 +14,7 @@ $(window).scroll(function(e) {
         if (windowTop > ($(this).position().top) && (index == it))
         {
             animationComplete = false;
-            if(it > 2){
+            if(it > size){
                 animationComplete = true;
                 return ;
             }
