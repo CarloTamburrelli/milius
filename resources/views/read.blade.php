@@ -53,7 +53,7 @@
     <a id="no_sound" class="btn btn-default" role="button">No sound <span id="label_sound" class="glyphicon glyphicon-volume-up"></span></a>
   </div>
   <div class="btn-group" role="group">
-  <a href="#scroll-to-down" class="btn btn-default" role="button">Tavola giu</a>
+  <a href="#scroll-to-down" onclick="weil(1)" class="btn btn-default" role="button">Tavola giu</a>
   </div>
 </div>
     <div class="row">
@@ -101,7 +101,7 @@
   	@endif
   </div>
   <div class="btn-group" role="group">
-    <a href="#scroll-to-top" class="btn btn-default" role="button">Tavola attuale</a>
+    <a href="#scroll-to-top" onclick="weil(0)" class="btn btn-default" role="button">Tavola attuale</a>
   </div>
   <div class="btn-group" role="group">
   @if(!is_null($board_plus_1))
@@ -133,6 +133,7 @@ var flag_start_to_play = false;
 var class_inj = "";
 $( document ).ready(function() {
     @if ($board->read_down == 1)
+      it = $(".pageSection").length - 2;
       class_inj = ".current_board_from_last";
       $(document).scrollTop( $("#current_board_from_bottom").offset().top );
     @else
@@ -176,6 +177,18 @@ $( document ).ready(function() {
       flag_start_to_play = true;
     }
 });
+
+
+function weil(type){
+  if(type == 1){ //stai andando giu
+    it = $(".pageSection").length - 2;
+  }else { // ... su
+    previousScroll = 0;
+    it = 0;
+  }
+}
+
+
 $("#no_sound").click(function(){
 	label_sound = 1 - label_sound;
 	if(label_sound == 1){
