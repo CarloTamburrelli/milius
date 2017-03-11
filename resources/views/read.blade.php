@@ -150,7 +150,7 @@ $( document ).ready(function() {
 
  $('.sound').waypoint(function(direction) {
   var element = $(this.element);
-    if(flag_start_to_play && ("#"+$(element).attr("id") != class_inj)){
+    if(flag_start_to_play && (!$(element).hasClass(class_inj.substring(1)))){
       var play_sound = $(element).data("sound");
       console.log("play!"+play_sound);
       ion.sound.play(play_sound);
