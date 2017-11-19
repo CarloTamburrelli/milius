@@ -20,6 +20,7 @@ class CreateBoardsTable extends Migration
             $table->timestamps();
             $table->boolean('read_down');
             $table->boolean('fast_scroll');
+            $table->boolean('proportions');
         });
     }
 

@@ -88,6 +88,7 @@ class ResourceController extends Controller
                 $board->resource_id = $resource->id;
                 $board->read_down = $request->input('read_down'.$i) == 1 ? 1 : 0;
                 $board->fast_scroll = $request->input('fast_scroll'.$i) == 1 ? 1 : 0;
+                $board->proportions = $request->input('proportions'.$i) == 1 ? 1 : 0;
                 $board->save();
                 $Illustration = null;
                 $n_vign = $request->input('board'.$i); 

@@ -10,7 +10,7 @@ class Reader extends Controller
 {
      public function index()
     {
-        $resources = Resource::all();
+        $resources = Resource::orderBy('id', 'desc')->get();
         return view('index',['resources' => $resources]);
     }
 

@@ -4,7 +4,7 @@
 
 <div class="container">
 <div class="page-header">
-  <h1>Milius <small>short and fun stories</small></h1>
+  <h1>Teatro situation <small>short and fun stories</small></h1>
 </div>
 
 <div class="row">
