@@ -131,20 +131,29 @@
 var label_sound = 0;
 var flag_start_to_play = false;
 var class_inj = "";
+var NOT_class_inj = "";
 $( document ).ready(function() {
     @if ($board->read_down == 1)
       it = $(".pageSection").length - 2;
       class_inj = ".current_board_from_last";
+      NOT_class_inj = ".current_board_from_start";
       $(document).scrollTop( $("#current_board_from_bottom").offset().top );
     @else
       class_inj = ".current_board_from_start";
+      NOT_class_inj = ".current_board_from_last";
       $(document).scrollTop( $(".current_board_from_start").offset().top );
     @endif
     var play = $(class_inj).data("sound");
-      if(play){
-        ion.sound.play(play);
-        //ion.sound.destroy(play);
-      }
+    if(play){
+      ion.sound.play(play);
+      //ion.sound.destroy(play);
+    }
+    @if ($board->auto_scroll != 0)
+      $('html, body').animate({
+        scrollTop: $(NOT_class_inj).offset().top
+      }, {{ $board->auto_scroll }} );
+    @endif
+
 });
 
 

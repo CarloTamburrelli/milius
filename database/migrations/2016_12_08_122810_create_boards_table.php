@@ -21,6 +21,7 @@ class CreateBoardsTable extends Migration
             $table->boolean('read_down');
             $table->boolean('fast_scroll');
             $table->boolean('proportions');
+            $table->integer('auto_scroll')->unsigned();
         });
     }
 
