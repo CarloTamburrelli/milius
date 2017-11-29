@@ -150,7 +150,7 @@ $( document ).ready(function() {
     }
     @if ($board->auto_scroll != 0)
       $('html, body').animate({
-        scrollTop: $(NOT_class_inj).offset().top
+        scrollTop: $(NOT_class_inj).offset().top-1
       }, {{ $board->auto_scroll }} );
     @endif
 
