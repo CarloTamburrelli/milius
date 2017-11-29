@@ -34,7 +34,7 @@ $(window).scroll(function(e) {
             {
                 animationComplete = false;
                 it = index;
-                $('html,body').animate({scrollTop: $('#section' +(it)).offset().top}, 500,
+                $('html,body').animate({scrollTop: $('#section' +(it)).offset().top-1}, 500,
                     function () {
                         setTimeout(function() { animationComplete = true;
                                                 previousScroll = $(this).scrollTop();
